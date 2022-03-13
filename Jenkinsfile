@@ -23,12 +23,12 @@ pipeline {
             steps {
                 script {
                     container('ubuntu') {
-                        // sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
-                        // sh "curl -fsSL https://get.docker.com/ | sh"
-                        // sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
-                        // sh "sudo service docker start"
+                        sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
+                        sh "curl -fsSL https://get.docker.com/ | sh"
+                        sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
+                        sh "sudo service docker start"
                         // sh "sudo chmod 666 /var/run/docker.sock"
-                        // sh "sleep 10"
+                        sh "sleep 10"
                         sh "docker --version"
                         dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
                     }

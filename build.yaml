@@ -11,13 +11,13 @@ spec:
         # allowPrivilegeEscalation: true
         # runAsUser: 0
         privileged: true
-      volumeMounts:
-        - name: dockersock
-          mountPath: /var/run/docker.sock            
+      # volumeMounts:
+      #   - name: dockersock
+      #     mountPath: /var/run/docker.sock            
       command:
         - cat
       tty: true
-  volumes:
-    - name: dockersock
-      hostPath:
-        path: /var/run/docker.sock      
+  # volumes:
+  #   - name: dockersock
+  #     hostPath:
+  #       path: /var/run/docker.sock      
