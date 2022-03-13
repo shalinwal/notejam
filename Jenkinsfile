@@ -71,7 +71,7 @@ pipeline {
                         withCredentials([
                             usernamePassword(credentialsId: REGISTRY_CREDENTIAL, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass')
                         ]){
-                            sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass $HELM_RELEASE ./notejam')            
+                            sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass $HELM_RELEASE notejam')            
                         }
                     }
                 }
