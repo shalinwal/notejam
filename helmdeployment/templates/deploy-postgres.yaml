@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploymentDb.name }}-deployment
+  namespace: {{ .Values.nameSpace.name }}
+  labels:
+    service: {{ .Values.deploymentDb.name }}
+spec:
+  replicas: {{ .Values.deploymentDb.replicaCount }}
+  selector:
+    matchLabels:
+      service: {{ .Values.deploymentDb.name }}
+  template:
+    metadata:
+      labels:
+        service: {{ .Values.deploymentDb.name }}
+        tier: backend
+    spec:
+      containers:
+        - image: {{ .Values.deploymentDb.containerImage }}
+          name: {{ .Values.deploymentDb.containerName }}
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretDb.name }}
+                  key: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretDb.name }}
+                  key: password
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: dbname
+
+          ports:
+            - containerPort: 5432
+          resources:
+            requests:
+              cpu: {{ .Values.deploymentDb.cpuRequest }}
+              memory: {{ .Values.deploymentDb.memoryRequest }}
+            limits:
+              cpu: {{ .Values.deploymentDb.cpuLimit}}
+              memory: {{ .Values.deploymentDb.memoryLimit }}
+          volumeMounts:
+            - mountPath: /var/lib/mysql/data
+              name: {{ .Values.PersistentVolumeClaim.name }}
+      restartPolicy: Always
+      volumes:
+        - name: {{ .Values.PersistentVolumeClaim.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.PersistentVolumeClaim.name }}

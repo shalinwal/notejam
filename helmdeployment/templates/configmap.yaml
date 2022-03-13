@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    service: {{ .Values.deploymentDb.name }}
+  name: {{ .Values.configMap.name }}
+
+data:
+  db-name: {{ .Values.configMap.dbname }}

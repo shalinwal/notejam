@@ -1,0 +1,52 @@
+deploymentWeb:
+  name: web
+  replicaCount: 1
+  containerName: notejam
+  containerImage: REPLACE_ME
+  cpuRequest: 100m
+  cpuLimit: 250m
+  memoryRequest: 128Mi
+  memoryLimit:  250Mi
+
+deploymentDb:
+  name: db
+  replicaCount: 1
+  containerName: database
+  containerImage: postgres
+  cpuRequest: 100m
+  cpuLimit: 250m
+  memoryRequest: 128Mi
+  memoryLimit:  256Mi 
+
+ingress:
+  name: notejam
+  host: "notejam.localhost"
+
+serviceDb:
+  name: db
+
+serviceWeb:
+  name: web
+
+secretDb:
+  name: notejam-credentials
+  user: YWRtaW4=
+  password: YWRtaW5AMTIz
+
+imageCredentials:
+  registry: https://index.docker.io/v1/
+  username: REPLACE_ME
+  password: REPLACE_ME
+
+
+nameSpace:
+  name: notejam
+
+configMap:
+  name: dbconfig
+  dbname: "nj"
+
+PersistentVolumeClaim:
+  name: data-db
+  accessMode: ReadWriteOnce
+  storageRequest: 2Gi
