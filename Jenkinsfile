@@ -74,7 +74,7 @@ pipeline {
                             usernamePassword(credentialsId: REGISTRY_CREDENTIAL, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass'),
                             usernamePassword(credentialsId: DB_CREDENTIAL, usernameVariable: 'dbUser', passwordVariable: 'dbPass')
                         ]){
-                            sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass --set secretDb.user=$dbUser --set secretDb.password=$dbPass --set nameSpace.name=$NAMESPACE $HELM_RELEASE ./helmdeployment --namespace $NAMESPACE')            
+                            sh ('helm upgrade --install --force --set deploymentWeb.containerImage=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass --set secretDb.user=$dbUser --set secretDb.password=$dbPass --set nameSpace.name=$NAMESPACE $HELM_RELEASE ./helmdeployment --namespace $NAMESPACE')            
                         }
                     }
                 }
