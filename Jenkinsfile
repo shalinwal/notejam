@@ -5,6 +5,7 @@ pipeline {
         NAMESPACE = 'notejam' // Create this namespace in target cluster before deployment
         REGISTRY = "swlidoc/notejamapp" // Replace with your own repository and image name
         REGISTRY_CREDENTIAL = 'dockerhub-push-pull' // setup this as username/password dockerhub private registry credential in Jenkins
+        DB_CREDENTIAL = 'db-creds' // pass username/password as base64 encoded secrets
         dockerImage = '' // do not change this
         imagename = "${REGISTRY}:$GIT_COMMIT"
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
@@ -71,8 +72,9 @@ pipeline {
                         }
                         withCredentials([
                             usernamePassword(credentialsId: REGISTRY_CREDENTIAL, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass')
+                            usernamePassword(credentialsId: DB_CREDENTIAL, usernameVariable: 'dbUser', passwordVariable: 'dbPass')
                         ]){
-                            sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass --set nameSpace.name=$NAMESPACE $HELM_RELEASE ./helmdeployment --namespace $NAMESPACE')            
+                            sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass --set secretDb.user=$dbUser --set secretDb.password=$dbPass --set nameSpace.name=$NAMESPACE $HELM_RELEASE ./helmdeployment --namespace $NAMESPACE')            
                         }
                     }
                 }

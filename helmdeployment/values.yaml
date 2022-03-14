@@ -30,8 +30,8 @@ serviceWeb:
 
 secretDb:
   name: notejam-credentials
-  user: YWRtaW4=
-  password: YWRtaW5AMTIz
+  user: REPLACE_ME
+  password: REPLACE_ME
 
 imageCredentials:
   registry: https://index.docker.io/v1/
