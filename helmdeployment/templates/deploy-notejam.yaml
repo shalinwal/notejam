@@ -24,6 +24,8 @@ spec:
           name: {{ .Values.deploymentWeb.containerName }}
           ports:
             - containerPort: 5000
+      imagePullSecrets:
+      - name: registrypullsecret
           resources:
             requests:
               cpu: {{ .Values.deploymentWeb.cpuRequest }}
