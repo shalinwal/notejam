@@ -48,5 +48,7 @@ configMap:
 
 PersistentVolumeClaim:
   name: data-db
-  accessMode: ReadWriteMany
+  accessMode: ReadWriteOnce
   storageRequest: 2Gi
+  omitStorageClassName: true
+  omitVolumeName: true
