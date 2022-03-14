@@ -11,13 +11,14 @@ spec:
         # allowPrivilegeEscalation: true
         # runAsUser: 0
         privileged: true
-      # volumeMounts:
-      #   - name: dockersock
-      #     mountPath: /var/run/docker.sock            
+      volumeMounts:
+        - name: "workspace-volume"
+          mountPath: "/home/jenkins/agent"
+          readOnly: false
       command:
         - cat
       tty: true
-  # volumes:
-  #   - name: dockersock
-  #     hostPath:
-  #       path: /var/run/docker.sock      
+  volumes:
+    - name: workspace-volume
+      persistentVolumeClaim:
+        claimName: jenkins-slave-pvc      

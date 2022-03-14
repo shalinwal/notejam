@@ -15,7 +15,6 @@ pipeline {
         kubernetes {
             defaultContainer 'jnlp'
             yamlFile 'build.yaml'
-            workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'jenkins-slave-pvc', readOnly: false)
         }
     }
     stages {
