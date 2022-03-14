@@ -8,7 +8,7 @@ deploymentWeb:
   memoryRequest: 128Mi
   memoryLimit:  250Mi
 
-deploymentDb:
+statefulsetDb:
   name: db
   replicaCount: 1
   containerName: database

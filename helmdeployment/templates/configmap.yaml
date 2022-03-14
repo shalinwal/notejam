@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    service: {{ .Values.deploymentDb.name }}
+    service: {{ .Values.statefulsetDb.name }}
   name: {{ .Values.configMap.name }}
 
 data:
