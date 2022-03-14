@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: {{ .Values.statefulsetDb.name }}
+    service: {{ .Values.deploymentDb.name }}
   name: {{ .Values.serviceDb.name }}
   namespace: {{ .Values.nameSpace.name }}
 spec:
@@ -12,4 +12,4 @@ spec:
       port: 5432
       targetPort: 5432
   selector:
-    app: {{ .Values.statefulsetDb.name }}
+    app: {{ .Values.deploymentDb.name }}

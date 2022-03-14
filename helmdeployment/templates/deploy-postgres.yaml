@@ -6,7 +6,6 @@ metadata:
   labels:
     service: {{ .Values.statefulsetDb.name }}
 spec:
-  serviceName: {{ .Values.serviceDb.name }}
   replicas: {{ .Values.statefulsetDb.replicaCount }}
   selector:
     matchLabels:

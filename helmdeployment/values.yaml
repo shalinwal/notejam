@@ -8,7 +8,7 @@ deploymentWeb:
   memoryRequest: 128Mi
   memoryLimit:  250Mi
 
-statefulsetDb:
+deploymentDb:
   name: db
   replicaCount: 1
   containerName: database
@@ -48,5 +48,5 @@ configMap:
 
 PersistentVolumeClaim:
   name: data-db
-  accessMode: ReadWriteOnce
+  accessMode: ReadWriteMany
   storageRequest: 2Gi
