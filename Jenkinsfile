@@ -15,7 +15,7 @@ pipeline {
         kubernetes {
             defaultContainer 'jnlp'
             yamlFile 'build.yaml'
-            workspaceVolume dynamicPVC(accessModes: 'ReadWriteOnce', requestsSize: "10Gi")
+            workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'jenkins-slave-pvc', readOnly: false)
         }
     }
     stages {
