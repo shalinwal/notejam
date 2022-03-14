@@ -11,14 +11,6 @@ spec:
         # allowPrivilegeEscalation: true
         # runAsUser: 0
         privileged: true
-      volumeMounts:
-        - name: "workspace-volume"
-          mountPath: "/home/jenkins/agent"
-          readOnly: false
       command:
         - cat
-      tty: true
-  volumes:
-    - name: workspace-volume
-      persistentVolumeClaim:
-        claimName: jenkins-slave-pvc      
+      tty: true    
