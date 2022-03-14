@@ -40,7 +40,7 @@ imageCredentials:
 
 
 nameSpace:
-  name: notejam
+  name: REPLACE_ME
 
 configMap:
   name: dbconfig

@@ -1,7 +1,8 @@
 pipeline {
     environment {
         DEPLOY = "${env.BRANCH_NAME == "main" || env.BRANCH_NAME.contains("features") ? "true" : "false" || env.BRANCH_NAME.contains("develop") ? "true" : "false"}"
-        HELM_RELEASE = 'notejam'
+        HELM_RELEASE = 'notejam' // Name of the Helm release
+        NAMESPACE = 'notejam' // Create this namespace in target cluster before deployment
         REGISTRY = "swlidoc/notejamapp" // Replace with your own repository and image name
         REGISTRY_CREDENTIAL = 'dockerhub-push-pull' // setup this as username/password dockerhub private registry credential in Jenkins
         dockerImage = '' // do not change this
@@ -71,7 +72,7 @@ pipeline {
                         withCredentials([
                             usernamePassword(credentialsId: REGISTRY_CREDENTIAL, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass')
                         ]){
-                            sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass $HELM_RELEASE ./helmdeployment')            
+                            sh ('helm upgrade --install --force --set deployment.image=$imagename --set imageCredentials.username=$imageCredentialsUser --set imageCredentials.password=$imageCredentialsPass --set nameSpace.name=$NAMESPACE $HELM_RELEASE ./helmdeployment --namespace $NAMESPACE')            
                         }
                     }
                 }
