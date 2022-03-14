@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.statefulsetDb.name }}-deployment
+  name: {{ .Values.deploymentDb.name }}-deployment
   namespace: {{ .Values.nameSpace.name }}
   labels:
-    service: {{ .Values.statefulsetDb.name }}
+    service: {{ .Values.deploymentDb.name }}
 spec:
-  replicas: {{ .Values.statefulsetDb.replicaCount }}
+  replicas: {{ .Values.deploymentDb.replicaCount }}
   selector:
     matchLabels:
-      service: {{ .Values.statefulsetDb.name }}
+      service: {{ .Values.deploymentDb.name }}
   template:
     metadata:
       labels:
-        service: {{ .Values.statefulsetDb.name }}
+        service: {{ .Values.deploymentDb.name }}
         tier: backend
     spec:
       containers:
-        - image: {{ .Values.statefulsetDb.containerImage }}
-          name: {{ .Values.statefulsetDb.containerName }}
+        - image: {{ .Values.deploymentDb.containerImage }}
+          name: {{ .Values.deploymentDb.containerName }}
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -40,11 +40,11 @@ spec:
             - containerPort: 5432
           resources:
             requests:
-              cpu: {{ .Values.statefulsetDb.cpuRequest }}
-              memory: {{ .Values.statefulsetDb.memoryRequest }}
+              cpu: {{ .Values.deploymentDb.cpuRequest }}
+              memory: {{ .Values.deploymentDb.memoryRequest }}
             limits:
-              cpu: {{ .Values.statefulsetDb.cpuLimit}}
-              memory: {{ .Values.statefulsetDb.memoryLimit }}
+              cpu: {{ .Values.deploymentDb.cpuLimit}}
+              memory: {{ .Values.deploymentDb.memoryLimit }}
           volumeMounts:
             - mountPath: /var/lib/mysql/data
               name: {{ .Values.PersistentVolumeClaim.name }}
