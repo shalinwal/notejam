@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ .Values.deploymentDb.name }}-deployment
   namespace: {{ .Values.nameSpace.name }}
@@ -34,7 +34,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ .Values.configMap.name }}
-                  key: db-name
+                  key: dbname
 
           ports:
             - containerPort: 5432
