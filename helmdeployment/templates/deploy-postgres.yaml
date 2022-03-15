@@ -34,7 +34,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ .Values.configMap.name }}
-                  key: dbname
+                  key: db-name
 
           ports:
             - containerPort: 5432

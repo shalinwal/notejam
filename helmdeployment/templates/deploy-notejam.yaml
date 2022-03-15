@@ -32,3 +32,5 @@ spec:
               cpu: {{ .Values.deploymentWeb.cpuLimit}}
               memory: {{ .Values.deploymentWeb.memoryLimit }}
       restartPolicy: Always
+      imagePullSecrets:
+      - name: registrypullsecret

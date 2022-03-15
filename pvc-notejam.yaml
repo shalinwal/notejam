@@ -1,0 +1,13 @@
+#data-db-persistentvolumeclaim.yam
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    service: data-db
+  name: data-db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
