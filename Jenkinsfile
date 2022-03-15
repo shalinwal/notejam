@@ -6,7 +6,6 @@ pipeline {
         REGISTRY = "swlidoc/notejamapp" // Replace with your own repository and image name
         REGISTRY_CREDENTIAL = 'dockerhub-push-pull' // setup this as username/password dockerhub private registry credential in Jenkins
         DB_CREDENTIAL = 'db-creds' // pass username/password as base64 encoded secrets
-        dockerImage = '' // do not change this
         imagename = "${REGISTRY}:$GIT_COMMIT"
         deployToLocal = true // accepted values : false/true . Set to true to deploy to same cluster where Jenkins instance is running.
         kubeconfig = "REPLACE_ME" // Set to kubeconfig credential ID for deploying to required target, deployToLocal must be set to false
