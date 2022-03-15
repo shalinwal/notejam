@@ -10,7 +10,7 @@ spec:
       securityContext:
         privileged: true
       command:
-        - cat
+      - cat
       tty: true
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
