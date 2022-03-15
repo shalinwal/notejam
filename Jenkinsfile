@@ -15,43 +15,38 @@ pipeline {
         kubernetes {
             defaultContainer 'jnlp'
             yamlFile 'build.yaml'
-            workspaceVolume dynamicPVC(accessModes: 'ReadWriteOnce', requestsSize: "10Gi")
         }
     }
     stages {
-        stage('Docker Build') {
+        stage('Docker Build and Push') {
             when {
                 environment name: 'DEPLOY', value: 'true'
             }
             steps {
                 script {
-                    container('ubuntu') {
-                        sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
-                        sh "curl -fsSL https://get.docker.com/ | sh"
-                        sh "echo \"limit nofile 262144 262144\" >> /etc/init/docker.conf"
-                        sh "sudo service docker start"
-                        // sh "sudo chmod 666 /var/run/docker.sock"
-                        sh "sleep 10"
-                        sh "docker --version"
-                        dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
+                    container('kaniko') {
+                        sh '''
+                          /kaniko/executor --context `pwd` --destination $imagename
+                        '''
+                        // dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
                     }
                 }
             }
         }
-        stage('Docker Publish') {
-            when {
-                environment name: 'DEPLOY', value: 'true'
-            }
-            steps {
-                script {
-                    container('ubuntu') {
-                        docker.withRegistry('', REGISTRY_CREDENTIAL) {
-                            dockerImage.push()
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Docker Publish') {
+        //     when {
+        //         environment name: 'DEPLOY', value: 'true'
+        //     }
+        //     steps {
+        //         script {
+        //             container('ubuntu') {
+        //                 docker.withRegistry('', REGISTRY_CREDENTIAL) {
+        //                     dockerImage.push()
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         stage('Kubernetes Deploy') {
             when {
                 environment name: 'DEPLOY', value: 'true'
