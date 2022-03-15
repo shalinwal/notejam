@@ -10,15 +10,14 @@ spec:
       securityContext:
         privileged: true
       command:
-      - sleep
-      args:
-      - 99d
+        - cat
+      tty: true
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
       command:
-      - sleep
+        - sleep
       args:
-      - 9999999
+        - 9999999
       volumeMounts:
       - name: kaniko-secret
         mountPath: /kaniko/.docker
