@@ -28,25 +28,10 @@ pipeline {
                         sh '''
                           /kaniko/executor --context `pwd` --destination $imagename
                         '''
-                        // dockerImage = docker.build REGISTRY + ":$GIT_COMMIT"
                     }
                 }
             }
         }
-        // stage('Docker Publish') {
-        //     when {
-        //         environment name: 'DEPLOY', value: 'true'
-        //     }
-        //     steps {
-        //         script {
-        //             container('ubuntu') {
-        //                 docker.withRegistry('', REGISTRY_CREDENTIAL) {
-        //                     dockerImage.push()
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
         stage('Kubernetes Deploy') {
             when {
                 environment name: 'DEPLOY', value: 'true'
@@ -54,6 +39,7 @@ pipeline {
             steps {
                 script {
                     container('ubuntu') {
+                        sh "apt update && apt upgrade -y && apt install curl -y && apt install sudo -y"
                         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl'
                         sh "chmod +x ./kubectl && mv ./kubectl /usr/local/bin"
                         sh "curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3"
