@@ -52,7 +52,7 @@ pipeline {
                             }
                         }
 
-                        sh 'kubectl apply -f pvc-notejam.yaml -n NAMESPACE'
+                        sh 'kubectl apply -f pvc-notejam.yaml -n $NAMESPACE'
 
                         withCredentials([
                             usernamePassword(credentialsId: REGISTRY_CREDENTIAL, usernameVariable: 'imageCredentialsUser', passwordVariable: 'imageCredentialsPass'),
