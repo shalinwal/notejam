@@ -50,5 +50,3 @@ PersistentVolumeClaim:
   name: data-db
   accessMode: ReadWriteOnce
   storageRequest: 2Gi
-  omitStorageClassName: true
-  omitVolumeName: true
