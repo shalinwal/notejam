@@ -1,6 +1,6 @@
 # Title
 
-Implementing an end to end CI/CD workflow for deploying using Jenkins for deploying containerized applications(microservices) to Kubernetes.
+Containerize and deploy an application to Kubernetes using CI/CD Pipelines.
 
 ## About the project
 
